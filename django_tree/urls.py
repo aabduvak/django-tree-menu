@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+
+from django_tree import settings
+from menu.views import IndexView, AboutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('about/', AboutView.as_view(), name='blog'),
+    path('', IndexView.as_view(), name='home'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
